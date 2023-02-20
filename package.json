@@ -1,0 +1,23 @@
+{
+  "name": "labook-projeto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slvgs/labook-projeto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/slvgs/labook-projeto/issues"
+  },
+  "homepage": "https://github.com/slvgs/labook-projeto#readme",
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  }
+}
