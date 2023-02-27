@@ -1,4 +1,5 @@
 import express from 'express'
+import { UserController } from '../controller/userController'
 
 
 
@@ -8,5 +9,7 @@ import express from 'express'
 
 export const userRouter = express.Router()
 
+const userController = new UserController
 
-userRouter.get("/")
+
+userRouter.post("/signup", userController.signup)
