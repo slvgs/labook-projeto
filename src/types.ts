@@ -4,6 +4,12 @@ export enum USER_ROLE{
 }
 
 
+export interface TokenPostLoad{
+    id: string, 
+    name: string, 
+    role: USER_ROLE
+}
+
 
 
 export interface PostModel {
@@ -40,7 +46,7 @@ export interface UserDB{
     name: string,
     email: string,
     password: string,
-    role: string,
+    role: USER_ROLE,
     created_at: string 
     
 }
@@ -52,7 +58,7 @@ export interface UserModel{
     name: string,
     email: string,
     password: string,
-    role: string,
+    role: USER_ROLE,
     createdAt: string 
     
 }

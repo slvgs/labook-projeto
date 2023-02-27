@@ -1,12 +1,12 @@
-
+import {v4} from 'uuid'
 
 
 export class IdGenerator{
 
 
-    public generate = (): any => {
+    public generate = (): string => {
 
-        //aplicar e entender a lógica
+        return v4()
 
     }
 }
