@@ -6,7 +6,7 @@ export enum USER_ROLE{
 
 export interface TokenPostLoad{
     id: string, 
-    name: string, 
+    content: string, 
     role: USER_ROLE
 }
 
@@ -37,6 +37,11 @@ export interface PostDB{
     dislikes: number,
     created_at: string,
     update_at: string
+}
+
+
+export interface PostWithCreatorDB extends PostDB{
+    creator_name: string
 }
 
 
