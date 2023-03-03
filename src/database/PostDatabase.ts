@@ -1,4 +1,4 @@
-import { PostDB, PostWithCreatorDB } from "../types";
+import { LikeDislikeDB, PostDB, PostWithCreatorDB, POST_LIKE } from "../types";
 import { BaseDatabase } from "./basedatabase";
 
 
@@ -6,6 +6,7 @@ import { BaseDatabase } from "./basedatabase";
 
 export class PostDatabase extends BaseDatabase {
     public static TABLE_POSTS = "posts"
+    public static TABLE_LIKES_DISLIKES = "like_dislikes"
 
 
     public getPostsWithCreators = async(): Promise<PostWithCreatorDB[]> => {
@@ -80,6 +81,59 @@ export class PostDatabase extends BaseDatabase {
         .where("posts.id", postId)
         
         return result[0]
+    }
+
+
+    public likeOrDislikePost = async (
+        likeDislike: LikeDislikeDB
+    ): Promise<void> =>{
+        await BaseDatabase.connection(PostDatabase.TABLE_LIKES_DISLIKES)
+        .insert(likeDislike)
+    }
+
+
+    public findLikeDislike = async (
+        likeDislikeFind: LikeDislikeDB
+    ): Promise<POST_LIKE | null> => {
+        const [likeDislikeDB]: LikeDislikeDB[] = await BaseDatabase
+        .connection(PostDatabase.TABLE_LIKES_DISLIKES)
+        .select()
+        .where({
+            user_id: likeDislikeFind.user_id,
+            post_id: likeDislikeFind.post_id
+        })
+
+        if(likeDislikeDB){
+            return likeDislikeDB.like === 1 ? POST_LIKE.ALREADY_LIKED : POST_LIKE.ALREADY_DISLIKED
+        }else{
+            return null
+        }
+    }
+
+
+    public removeLikeDislike = async (
+        likeDislikeDB: LikeDislikeDB
+
+    ):Promise<void> => {
+        await BaseDatabase.connection(PostDatabase.TABLE_LIKES_DISLIKES)
+        .delete()
+        .where({
+            user_id: likeDislikeDB.user_id,
+            post_id: likeDislikeDB.post_id
+        })
+    }
+
+
+    public updateLikeDislike = async (
+        likeDislikeDB: LikeDislikeDB
+    ) => {
+        await BaseDatabase.connection(PostDatabase.TABLE_LIKES_DISLIKES)
+        .update(likeDislikeDB)
+        .where({
+            user_id: likeDislikeDB.user_id,
+            post_id: likeDislikeDB.post_id
+
+        })
     }
 
 

@@ -6,7 +6,7 @@ export enum USER_ROLE{
 
 export interface TokenPostLoad{
     id: string, 
-    content: string, 
+    name: string, 
     role: USER_ROLE
 }
 
@@ -67,3 +67,17 @@ export interface UserModel{
     createdAt: string 
     
 }
+
+
+
+export interface LikeDislikeDB {
+    user_id: string,
+    post_id: string,
+    like: number
+}
+
+export enum POST_LIKE {
+    ALREADY_LIKED = "ALREADY LIKED",
+    ALREADY_DISLIKED = "ALREADY DISLIKED"
+}
+

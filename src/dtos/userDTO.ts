@@ -53,3 +53,4 @@ export interface LikeOrDislikeInputDTO{
     token: string | undefined,
     like: unknown
 }
+
