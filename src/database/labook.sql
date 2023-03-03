@@ -73,7 +73,7 @@ VALUES
     ("u03", "p02", 1),
     ("u02", "p03", 0);
 
-SELECT * FROM like_dislikes;
+SELECT * FROM users;
 
 
 

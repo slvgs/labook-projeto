@@ -77,7 +77,7 @@ export class UserBussiness{
     }
 
 
-    public login = async (input: LoginInputDTO): Promise<LoginOutputDTO> => {
+    public login = async (input: LoginInputDTO) => {
         const {email, password} = input
         
 
@@ -94,34 +94,49 @@ export class UserBussiness{
 
         
         //validar no DB email
-        const userDB: UserDB | undefined = await this.userDataBase.findEmail(email)
+        const userDBCorrect = await this.userDataBase.findEmail(email)
 
-        if(!userDB){
+        if(!userDBCorrect){
             throw new NotFoundError("'email' não cadastrado")
         }
 
 
-        const user = new User(
-            userDB.id,
-            userDB.email,
-            userDB.name,
-            userDB.password,
-            userDB.role,
-            userDB.created_at,
-        )
+        // const user = new User(
+        //     userDBCorrect.id,
+        //     userDBCorrect.email,
+        //     userDBCorrect.name,
+        //     userDBCorrect.password,
+        //     userDBCorrect.role,
+        //     userDBCorrect.created_at,
+        // )
 
-        const validarPassword = user.getPassoword()
+        // const validarPassword = user.getPassoword()
 
 
 
         const isPasswordCorrect = await this.hashManager
-        .compare(password, validarPassword)
+        .compare(password, userDBCorrect.password)
 
 
-        if (!isPasswordCorrect) {
+        if (isPasswordCorrect) {
             throw new BadRequestError("'password' incorreto")
         }
 
+
+
+        if(userDBCorrect){
+
+            const user = new User(
+                userDBCorrect.id,
+                userDBCorrect.email,
+                userDBCorrect.name,
+                userDBCorrect.password,
+                userDBCorrect.role,
+                userDBCorrect.created_at,
+            )
+
+
+            
         const postload: TokenPostLoad = {
             id: user.getId(),
             name: user.getName(),
@@ -130,14 +145,33 @@ export class UserBussiness{
 
         const token = this.tokenManager.createToken(postload)
 
-        const output: LoginOutputDTO = {
-            token
-        }
+        
+        const output = { message: "Seu login foi realizado com sucesso", token}
 
         return output
+        }else{
+            const output = {message:"Dados incorretos!"}
+            return output
+        }
+
+
+        
+       
+
+        
+
+       
+
+       
 
 
 
 
     }
+
+
+ 
+
+
+
 }
