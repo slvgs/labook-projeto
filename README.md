@@ -31,7 +31,7 @@ _O Labook é uma rede social com o objetivo de promover a conexão e interação
 
 # Banco de Dados
 
-![](/src/assets/labook.png)
+<img src= "https://raw.githubusercontent.com/slvgs/labook-projeto/Finalizado/src/assets/labook.png">
 
 
 
