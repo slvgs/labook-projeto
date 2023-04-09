@@ -8,8 +8,9 @@
         "removeComments": true,   
         "noImplicitAny": true,      
         "esModuleInterop": true,
-        "noEmitOnError": true,
+        // "noEmitOnError": true,
         "strict": true,
        
-    }
+    },
+    "exclude": ["./tests/*"]
 }
